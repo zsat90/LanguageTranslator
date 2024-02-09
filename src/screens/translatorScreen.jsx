@@ -1,63 +1,61 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { styles } from "../styles/globalStyles";
+import { languages } from "../utils/languages";
+import translateText from "../services/translateAPI";
 
 
-const TranslatorPage = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
-  const [text, setText] = useState('');
+const TranslatorPage = ({ navigation }) => {
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
+  const [text, setText] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
+
+  
+
+  const handleTranslate = async () => {
+    const result = await translateText(text, selectedLanguage);
+
+    if (result && result.translations && result.translations.translation) {
+      navigation.navigate("TranslatedText", {
+        translatedText: result.translations.translation,
+      });
+    } else {
+      console.error("Translation Failed. Please Try again.");
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Translate:</Text>
-      <Picker
-        style = {styles.picker}
-        selectedValue = {selectedLanguage}
-        onValueChange = {(itemValue, itemIndex) =>
-          setSelectedLanguage(itemValue)
-        }>
-        {/* import and map through langues.js file for values */}
-      </Picker>
+      
+      <Text style={styles.text}>English:</Text>
+
       <TextInput
         style={styles.textInput}
         onChangeText={setText}
         value={text}
         multiline
-        placeholder="Enter text"
+        placeholder="Enter text to translate..."
       />
-      <Button
-        title= 'Translate'
-      />
+      <Text style={styles.text}>Choose Langauge to translate to:</Text>
+      <Picker
+        style={styles.picker}
+        selectedValue={selectedLanguage}
+        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+      >
+        {languages.map((language, index) => (
+          <Picker.Item
+            key={index}
+            label={language.label}
+            value={language.value}
+          />
+        ))}
+      </Picker>
+      <TouchableOpacity style={styles.button} onPress={handleTranslate}>
+        <Text style={styles.buttonText}>Translate</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'left',
-        marginTop: 100,
-        padding: 20,
-    },
-    text: {
-      fontSize: 20,
-      marginBottom: 20
-    },
-    picker: {
-      width: 200,
-      height: 50,
-      marginBottom: 20,
-    },
-    textInput: {
-      borderWidth: 1,
-      borderColor: "#ccc",
-      width: '80%',
-      height: 100,
-      padding: 10,
-      textAlignVertical: 'top',
-      marginTop: 200
-    }
-
-})
 
 export default TranslatorPage;
