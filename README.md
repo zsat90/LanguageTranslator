@@ -8,9 +8,7 @@ LangLeap is an application that allows a user to enter a word or phrase and tran
 
 The purpose of creating this app was to learn how to use React Native, a popular framework for developing cross-platform mobile applications using JavaScript. React Native combines the best parts of native development with React, a best-in-class JavaScript library for building user interfaces. By embarking on this project, I aimed to deepen my understanding of mobile app development and familiarize myself with the React Native ecosystem
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the app running and a walkthrough of the code.}
-
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/WHGNw9_IU0k)
 
 # Development Environment
 
