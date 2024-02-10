@@ -5,7 +5,7 @@ import { styles } from "../styles/globalStyles";
 const WelcomeScreen = ({navigation}) => {
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome To Phrase Finder!</Text>
+            <Text style={styles.text}>Welcome To LangLeap!</Text>
             <Text style={styles.text}>Enter the word or phrase you wish to translate.</Text>
             <Text style={styles.text}>Then choose the language you want it to be translated to.</Text>
             <Text style={styles.text}>Press the translate button and see your translation.</Text>
